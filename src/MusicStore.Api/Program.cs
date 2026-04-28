@@ -1,4 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using MusicStore.Repositories;
+using MusicStore.Persistence;
+
 #region middleware
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +13,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 #endregion
 
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 //Registrar el servicio de MusicStore
-builder.Services.AddScoped<GenreRepository>();
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 
 //de aquí en adelante se indican que elementos usa la app
 var app = builder.Build();
