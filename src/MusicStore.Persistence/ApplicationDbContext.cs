@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MusicStore.Entities;
+using System.Reflection;
 
 namespace MusicStore.Persistence
 {
@@ -12,9 +13,19 @@ namespace MusicStore.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Genre>().Property(g => g.Name).IsRequired().HasMaxLength(50);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            //Fluent API
+            //modelBuilder.Entity<Genre>().Property(g => g.Name).IsRequired().HasMaxLength(50);
         }
 
-        public DbSet<Genre> Genres { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if(!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseLazyLoadingProxies();
+            }
+        }
+        //Entities to tables
+        //public DbSet<Genre> Genres { get; set; }
     }
 }

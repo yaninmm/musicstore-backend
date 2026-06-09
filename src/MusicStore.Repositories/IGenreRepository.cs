@@ -2,12 +2,13 @@
 
 namespace MusicStore.Repositories
 {
-    public interface IGenreRepository
+    public interface IGenreRepository : IRepositoryBase<Genre>
     {
-        Task AddAsync(Genre genre);
-        Task DeleteAsync(int id);
-        Task<List<Genre>> GetAsync();
-        Task<Genre?> GetByIdAsync(int id);
-        Task UpdateAsync(int id, Genre genre);
+        //Task<List<GenreResponseDto>> GetAsync();
+        //Task<GenreResponseDto?> GetByIdAsync(int id);
+        //Task<int> AddAsync(GenreRequestDto genre);
+        //Task UpdateAsync(int id, GenreRequestDto genre);
+        //Task DeleteAsync(int id);
+
     }
 }

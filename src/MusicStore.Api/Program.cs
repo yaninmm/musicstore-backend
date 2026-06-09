@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using MusicStore.Repositories;
 using MusicStore.Persistence;
+using MusicStore.Services.Interface;
+using MusicStore.Services.Implementation;
+using MusicStore.Services.Profiles;
 
 #region middleware
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +21,17 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 //Registrar el servicio de MusicStore
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+builder.Services.AddScoped<IConcertRepository, ConcertRepository>();
+builder.Services.AddScoped<IConcertService, ConcertService>();
+builder.Services.AddScoped<IGenreService, GenreService>();
 
+
+//Registrar AutoMapper
+builder.Services.AddAutoMapper(config =>
+{
+    config.AddProfile<ConcertProfile>();
+    config.AddProfile<GenreProfile>();
+});
 //de aquí en adelante se indican que elementos usa la app
 var app = builder.Build();
 

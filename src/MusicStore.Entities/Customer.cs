@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MusicStore.Entities
 {
-    public class Genre : EntityBase
+    public class Customer : EntityBase
     {
-        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = default!;
+        public string FullName { get; set; } = default!;
     }
 }

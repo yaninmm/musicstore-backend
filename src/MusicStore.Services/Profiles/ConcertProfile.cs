@@ -1,0 +1,24 @@
+﻿using AutoMapper;
+using MusicStore.Dto.Request;
+using MusicStore.Dto.Response;
+using MusicStore.Entities;
+using MusicStore.Entities.Info;
+
+namespace MusicStore.Services.Profiles
+{
+    public class ConcertProfile : Profile
+    {
+        public ConcertProfile()
+        {
+            CreateMap<ConcertInfo, ConcertResponseDto>();
+            CreateMap<Concert, ConcertResponseDto>()
+                .ForMember(d => d.DateEvent, s => s.MapFrom(x => x.DateEvent.ToShortDateString()))
+                .ForMember(d => d.TimeEvent, s => s.MapFrom(x => x.DateEvent.ToShortTimeString()))
+                .ForMember(d => d.Status, o => o.MapFrom(x=> x.Status ? "Active" : "Cancelled"));
+
+            CreateMap<ConcertRequestDto, Concert>()
+                .ForMember(d=> d.DateEvent, o=> o.MapFrom(x =>Convert.ToDateTime($"{x.DateEvent} {x.TimeEvent}")));
+
+        }
+    }
+}

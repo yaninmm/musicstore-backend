@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MusicStore.Entities
+namespace MusicStore.Dto.Request
 {
-    public class Genre : EntityBase
+    public class GenreRequestDto
     {
         public string Name { get; set; } = string.Empty;
+
+        public bool Status { get; set; } = true;
     }
 }
